@@ -1,0 +1,33 @@
+{
+  "name": "codesthenos-nodepop",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --watch ./bin/www",
+    "debug": "cross-env PORT=5555 DEBUG=npx-express-generator-ejs:* npm start",
+    "dev": "cross-env PORT=4444 npm start",
+    "resetDB": "node resetDB",
+    "lint": "standard"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "1.4.7",
+    "cross-env": "7.0.3",
+    "debug": "4.3.7",
+    "ejs": "3.1.10",
+    "express": "4.21.1",
+    "express-session": "^1.18.1",
+    "http-errors": "2.0.0",
+    "mongoose": "^8.8.0",
+    "morgan": "1.10.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "standard": "17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "standard"
+  }
+}

@@ -26,8 +26,8 @@ POST --> `/api/products` `/api/login`
 PUT --> `/api/products/:productId`
 DELETE --> `/api/products/:productId`
 
-## OPTIONAL
-
 Documentacion usando redoc o swagger o parecido
+
+## OPTIONAL
 
 Servicio de thumbnails y crear modulo publico de npm

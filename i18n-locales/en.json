@@ -43,5 +43,11 @@
 	"    NAME cant be repeated": "    NAME cant be repeated",
 	"\n      message: File must be a valid image format (e.g., .jpg, .png, .gif, etc.)\n    ": "\n      message: File must be a valid image format (e.g., .jpg, .png, .gif, etc.)\n    ",
 	"Current image": "Current image",
-	"New image": "New image"
+	"New image": "New image",
+	"Email": "Email",
+	"Password": "Password",
+	"\n      ERROR in email\n            message: Invalid email\n    \n      ERROR in password\n            message: Password must be at least 6 characters\n    ": "\n      ERROR in email\n            message: Invalid email\n    \n      ERROR in password\n            message: Password must be at least 6 characters\n    ",
+	"\n      ERROR in password\n            message: Password must be at least 6 characters\n    ": "\n      ERROR in password\n            message: Password must be at least 6 characters\n    ",
+	"   Invalid credentials": "   Invalid credentials",
+	"   ERROR: This email is already REGISTERED": "   ERROR: This email is already REGISTERED"
 }

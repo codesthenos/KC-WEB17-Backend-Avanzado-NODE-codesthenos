@@ -5,7 +5,7 @@
     <%- include('header.ejs')%>
     <form method="post" class="form">
       <div>
-        <label for="email">Email</label>
+        <label for="email"><%= __('Email') %></label>
         <input
           type="email"
           id="email"
@@ -15,14 +15,14 @@
         />
       </div>
       <div>
-        <label for="password">Password</label>
+        <label for="password"><%= __('Password') %></label>
         <input type="password" id="password" name="password" required />
       </div>
 
-      <button class="btn">Submit</button>
+      <button class="btn"><%= __('Submit') %></button>
     </form>
     <% if (error) { %>
-    <pre><%= error %></pre>
+    <pre><%= __(error) %></pre>
     <% } %>
   </body>
 </html>

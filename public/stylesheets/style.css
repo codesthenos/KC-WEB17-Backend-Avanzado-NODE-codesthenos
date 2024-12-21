@@ -62,6 +62,13 @@ body {
   }
 }
 
+.product-image {
+  max-width: 200px;
+  img {
+    max-width: 100%;
+  }
+}
+
 .main {
   max-width: 900px;
   margin: 0 auto;

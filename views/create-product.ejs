@@ -24,13 +24,19 @@
           required
         />
       </div>
+      <% if (productName) {%>
+        <div class="product-image">
+          <h3>Current image</h3>
+          <img src="<%= productImage %>" alt="<%= productName %>">
+        </div>
+      <% } %>
       <div>
-        <label for="image">Image</label>
+        <label for="image"><%= productName ? "New image" : "Image" %></label>
         <input
           type="file"
+          accept="image/*"
           id="image"
           name="image"
-          value="<%= productImage %>"
         />
       </div>
       <h3>Tags</h3>

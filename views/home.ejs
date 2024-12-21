@@ -7,45 +7,45 @@
       <% if (session.userId) { %>
         <div class="nav">
           <% if (tag) { %>
-            <h3 style="color: #00B7FF;">Tag: <%= tag %></h3>
+            <h3 style="color: #00B7FF;"><%= __('Tag: ') %><%= tag %></h3>
           <% } %>
           <% if (name) { %>
-            <h3 style="color: #00B7FF;">Name: <%= name %></h3>
+            <h3 style="color: #00B7FF;"><%= __('Name: ') %><%= name %></h3>
           <% } %>
           <% if (priceView) { %>
-            <h3 style="color: #00B7FF;">Price: <%= priceView %></h3>
+            <h3 style="color: #00B7FF;"><%= __('Price: ') %><%= priceView %></h3>
           <% } %>
           <% if (sort) { %>
-            <h3 style="color: #00B7FF;">Sort by: <%= sort %></h3>
+            <h3 style="color: #00B7FF;"><%= __('Sort by: ') %><%= sort %></h3>
           <% } %>
           <% if (errorURL) { %>
-            <pre style="color: rgb(255, 31, 31);"><%= errorURL %></pre>
+            <pre style="color: rgb(255, 31, 31);"><%= __(errorURL) %></pre>
           <% } %>
           <% if (limit) { %>
-            <a class="btn" href="<%= hrefShowAll %>">Show All</a>
+            <a class="btn" href="<%= hrefShowAll %>"><%= __('Show All') %></a>
             <% if (skip > 0) { %>
-              <a class="btn" href="<%= hrefPreviousPage %>">Previous page</a>
+              <a class="btn" href="<%= hrefPreviousPage %>"><%= __('Previous page') %></a>
             <% } %>
             <% if (nextPage < productsLength) { %>
-              <a class="btn" href="<%= hrefNextPage %>">Next page</a>
+              <a class="btn" href="<%= hrefNextPage %>"><%= __('Next page') %></a>
             <% } %>
           <% } else { %>
-            <a class="btn" href="<%= hrefPaginate %>">Show 2 by 2</a>
+            <a class="btn" href="<%= hrefPaginate %>"><%= __('Show 2 by 2') %></a>
           <% } %>
         </div>
         <div class="nav sorting">
           <div class="sort">
-            <h3>SORTING NAME</h3>
+            <h3><%= __('SORTING NAME') %></h3>
             <div style="margin-left: 1.25rem;">
               <a class="btn <%= sort === 'name' ? 'disabled' : '' %>" href="<%= hrefNameSortAtoZ %>">A-Z</a>
               <a class="btn <%= sort === 'name-1' ? 'disabled' : '' %>" href="<%= hrefNameSortZtoA %>">Z-A</a>
             </div>
           </div>
           <div class="sort" style="margin-top: 3rem;">
-            <a class="btn <%= !sort ? 'disabled' : '' %>" href="<%= hrefUnsort %>">UNSORT</a>
+            <a class="btn <%= !sort ? 'disabled' : '' %>" href="<%= hrefUnsort %>"><%= __('UNSORT') %></a>
           </div>
           <div class="sort">
-            <h3>SORTING PRICE</h3>
+            <h3><%= __('SORTING PRICE') %></h3>
             <div style="margin-left: 1rem;">
               <a class="btn <%= sort === 'price' ? 'disabled' : '' %>" href="<%= hrefPriceSortASC %>">ASC</a>
               <a class="btn <%= sort === 'price-1' ? 'disabled' : '' %>" href="<%= hrefPriceSortDES %>">DES</a>
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="nav-filters">
-          <h3>FILTERS</h3>
+          <h3><%= __('FILTERS') %></h3>
           <div class="nav-filter-forms">
             <form method="get">
               <div class="name-price-filters">
@@ -63,7 +63,7 @@
                 <% if (limit) { %>
                   <input type="hidden" name="limit" value="<%= limit %>">
                 <% } %>
-                <label for="name-filter">NAME</label>
+                <label for="name-filter"><%= __('NAME') %></label>
                 <input id="name-filter" type="text" name="name" value="<%= name ? name : '' %>" required />
                 <% if (price) { %>
                   <input type="hidden" name="price" value="<%= price %>">
@@ -84,8 +84,8 @@
                   <input type="hidden" name="sort" value="<%= sort %>">
                 <% } %>
                 <div class="filter-form-buttons">
-                  <button class="btn" type="submit">SET</button>
-                  <a class="btn <%= !name ? 'disabled' : '' %>" href="<%= hrefNameUnsetFilter %>">UNSET</a>
+                  <button class="btn" type="submit"><%= __('SET') %></button>
+                  <a class="btn <%= !name ? 'disabled' : '' %>" href="<%= hrefNameUnsetFilter %>"><%= __('UNSET') %></a>
                 </div>
               </div>
             </form>
@@ -102,11 +102,11 @@
                 <% } %>
                 <div class="price-2-div">
                   <div class="price-div">
-                    <label for="priceMin-filter">PRICE MIN</label>
+                    <label for="priceMin-filter"><%= __('PRICE MIN') %></label>
                     <input id="priceMin-filter" type="number" name="priceMin" value="<%= priceMin ? priceMin : '' %>" <%= priceExact ? 'disabled' : '' %>/>
                   </div>
                   <div class="price-div">
-                    <label for="priceMax-filter">PRICE MAX</label>
+                    <label for="priceMax-filter"><%= __('PRICE MAX') %></label>
                     <input id="priceMax-filter" type="number" name="priceMax" value="<%= priceMax ? priceMax : '' %>" <%= priceExact ? 'disabled' : '' %> />
                   </div>
                 </div>
@@ -117,8 +117,8 @@
                   <input type="hidden" name="sort" value="<%= sort %>">
                 <% } %>
                 <div class="filter-form-buttons">
-                  <button class="btn <%= priceExact ? 'disabled' : '' %>" type="submit">SET</button>
-                  <a class="btn <%= !priceMin && !priceMax ? 'disabled' : '' %>" href="<%= hrefPriceMinMaxUnsetFilter %>">UNSET</a>
+                  <button class="btn <%= priceExact ? 'disabled' : '' %>" type="submit"><%= __('SET') %></button>
+                  <a class="btn <%= !priceMin && !priceMax ? 'disabled' : '' %>" href="<%= hrefPriceMinMaxUnsetFilter %>"><%= __('UNSET') %></a>
                 </div>
               </div>
             </form>
@@ -133,7 +133,7 @@
                 <% if (name) { %>
                   <input type="hidden" name="name" value="<%= name %>">
                 <% } %>
-                <label for="priceExact-filter">PRICE EXACT</label>
+                <label for="priceExact-filter"><%= __('PRICE EXACT') %></label>
                 <input id="priceExact-filter" type="number" name="priceExact" value="<%= priceExact ? priceExact : '' %>" required <%= priceMin || priceMax ? 'disabled' : '' %> />
                 <% if (tag) { %>
                   <input type="hidden" name="tag" value="<%= tag %>">
@@ -142,8 +142,8 @@
                   <input type="hidden" name="sort" value="<%= sort %>">
                 <% } %>
                 <div class="filter-form-buttons">
-                  <button class="btn <%= priceMin || priceMax ? 'disabled' : '' %>" type="submit">SET</button>
-                  <a class="btn <%= !priceExact ? 'disabled' : '' %>" href="<%= hrefPriceExactUnsetFilter %>">UNSET</a>
+                  <button class="btn <%= priceMin || priceMax ? 'disabled' : '' %>" type="submit"><%= __('SET') %></button>
+                  <a class="btn <%= !priceExact ? 'disabled' : '' %>" href="<%= hrefPriceExactUnsetFilter %>"><%= __('UNSET') %></a>
                 </div>
               </div>
             </form>
@@ -197,35 +197,35 @@
                 <input type="hidden" name="sort" value="<%= sort %>">
               <% } %>
               <div class="filter-form-buttons">
-                <button class="btn" type="submit">SET</button>
-                <a class="btn <%= !tag ? 'disabled' : '' %>" href="<%= hrefTagUnsetFilter %>">UNSET</a>
+                <button class="btn" type="submit"><%= __('SET') %></button>
+                <a class="btn <%= !tag ? 'disabled' : '' %>" href="<%= hrefTagUnsetFilter %>"><%= __('UNSET') %></a>
               </div>
             </form>
           </div>
         </div>
         <% if (error) { %>
-          <pre style="color: rgb(255, 31, 31);"><%= error %></pre>
+          <pre style="color: rgb(255, 31, 31);"><%= __(error) %></pre>
         <% } %>
         <% if (productsLength <= 0 || skip >= productsLength) { %>
-          <h2 class="no-product">No products match the URL</h2>
+          <h2 class="no-product"><%= __('No products match the URL') %></h2>
         <% } %>
         <ul>
           <% products.map((product, index) => { %>
           <li>
             <div>
               <h2><%= product.name %></h2>
-              <p>Price: <%= product.price %> €</p>
+              <p><%= __('Price: ') %><%= product.price %> €</p>
               <% product.tags.map((tag, index) => { %>
-              <p>Tag <%= index + 1 %>: <%= tag %></p>
+              <p><%= __('Tag ') %><%= index + 1 %>: <%= tag %></p>
               <% }) %>
             </div>
             <div class="buttons-image">
               <div>
                 <a href="/delete-product/<%= product._id %>" class="btn"
-                  >delete</a
+                  ><%= __('delete') %></a
                 >
                 <a href="/update-product/<%= product._id %>" class="btn"
-                  >update</a
+                  ><%= __('update') %></a
                 >
               </div>
               <img src="<%= product.image %>" alt="<%= product.name %> image" />

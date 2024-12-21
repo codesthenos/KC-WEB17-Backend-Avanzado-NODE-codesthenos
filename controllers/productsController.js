@@ -12,7 +12,11 @@ export const getCreateProduct = (req, res, next) => {
 
 export const postCreateProduct = async (req, res, next) => {
   // get data from form
-  const { name, price, image, tags } = req.body
+  const { name, price, tags } = req.body
+  let image = null
+  if (req.file) {
+    image = `/productsImages/${req.file.filename}`
+  }
   try {
     // get userId from session
     const userId = req.session.userId

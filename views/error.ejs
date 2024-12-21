@@ -2,8 +2,8 @@
 <html>
   <%- include('head.ejs') %>
   <body>
-    <h1><%= message %></h1>
-    <h2><%= error.status %></h2>
-    <pre><%= error.stack %></pre>
+    <h1><%= __(message) %></h1>
+    <h2><%= __(error.status) %></h2>
+    <pre><%= __(error.stack) %></pre>
   </body>
 </html>

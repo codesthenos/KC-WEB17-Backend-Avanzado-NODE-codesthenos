@@ -15,6 +15,7 @@ import { createProductValidatorMiddleware, loginSchema, updateProductValidatorMi
 import { LOGIN_TITLE, REGISTER_TITLE } from './lib/config.js'
 import { handleLoginValidationError } from './lib/zodErrorHandlers.js'
 import { uploadFileMiddleware } from './lib/multerMiddleware.js'
+import { i18nMiddleware } from './lib/i18nMiddleware.js'
 
 const app = express()
 
@@ -37,11 +38,12 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 
 // API REST Endpoints
 
-// Session manger middlewares
-app.use(sessionMiddleware, setSessionLocalsMiddleware)
-
 // Website Endpoints
 
+// Session manger middlewares
+app.use(sessionMiddleware, setSessionLocalsMiddleware)
+// i18n middleware
+app.use(i18nMiddleware)
 // homepage
 app.get('/', homeController)
 /* Users */
@@ -53,7 +55,6 @@ app.all('/logout', logoutController)
 // register
 app.get('/register', getRegister)
 app.post('/register', validatorMiddleware({ title: REGISTER_TITLE, schema: loginSchema, errorHandler: handleLoginValidationError }), postRegister)
-
 /* Products */
 // create
 app.get('/create-product', isLogged, getCreateProduct)

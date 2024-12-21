@@ -31,5 +31,17 @@
 	"ERROR PRICE:\n\n    FAILED ON: PRICE MIN >= 0 | PRICE MAX > 0 | PRICE EXACT > 0": "ERROR PRICE:\n\n    FAILED ON: PRICE MIN >= 0 | PRICE MAX > 0 | PRICE EXACT > 0",
 	"Tag ": "Tag ",
 	"delete": "delete",
-	"update": "update"
+	"update": "update",
+	"REGISTER": "REGISTER",
+	"LOGIN": "LOGIN",
+	"Name": "Name",
+	"Price": "Price",
+	"Image": "Image",
+	"Tags": "Tags",
+	"Submit": "Submit",
+	"\n      message: Select at least one tag\n    ": "\n      message: Select at least one tag\n    ",
+	"    NAME cant be repeated": "    NAME cant be repeated",
+	"\n      message: File must be a valid image format (e.g., .jpg, .png, .gif, etc.)\n    ": "\n      message: File must be a valid image format (e.g., .jpg, .png, .gif, etc.)\n    ",
+	"Current image": "Current image",
+	"New image": "New image"
 }

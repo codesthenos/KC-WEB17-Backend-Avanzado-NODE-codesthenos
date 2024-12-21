@@ -3,7 +3,7 @@
   <%- include('head.ejs') %>
   <body>
     <%- include('header.ejs')%>
-    <form method="post" class="form">
+    <form method="post" class="form" enctype="multipart/form-data">
       <div>
         <label for="name">Name</label>
         <input
@@ -25,9 +25,9 @@
         />
       </div>
       <div>
-        <label for="image">Image URL</label>
+        <label for="image">Image</label>
         <input
-          type="text"
+          type="file"
           id="image"
           name="image"
           value="<%= productImage %>"

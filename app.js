@@ -14,6 +14,7 @@ import { deleteProduct, getCreateProduct, postCreateProduct, getUpdateProduct, p
 import { createProductValidatorMiddleware, loginSchema, updateProductValidatorMiddleware, validatorMiddleware } from './lib/validatorSchemas.js'
 import { LOGIN_TITLE, REGISTER_TITLE } from './lib/config.js'
 import { handleLoginValidationError } from './lib/zodErrorHandlers.js'
+import { uploadFileMiddleware } from './lib/multerMiddleware.js'
 
 const app = express()
 
@@ -54,12 +55,12 @@ app.post('/register', validatorMiddleware({ title: REGISTER_TITLE, schema: login
 /* Products */
 // create
 app.get('/create-product', isLogged, getCreateProduct)
-app.post('/create-product', isLogged, createProductValidatorMiddleware, postCreateProduct)
+app.post('/create-product', isLogged, uploadFileMiddleware, createProductValidatorMiddleware, postCreateProduct)
 // delete
 app.get('/delete-product/:id', isLogged, deleteProduct)
 // update
 app.get('/update-product/:id', isLogged, getUpdateProduct)
-app.post('/update-product/:id', isLogged, updateProductValidatorMiddleware, postUpdateProduct)
+app.post('/update-product/:id', isLogged, uploadFileMiddleware, updateProductValidatorMiddleware, postUpdateProduct)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

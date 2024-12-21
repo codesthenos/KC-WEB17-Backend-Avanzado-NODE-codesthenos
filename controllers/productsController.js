@@ -16,6 +16,8 @@ export const postCreateProduct = async (req, res, next) => {
   let image = null
   if (req.file) {
     image = `/productsImages/${req.file.filename}`
+  } else {
+    image = '/productsImages/placeholder.jpg'
   }
   try {
     // get userId from session

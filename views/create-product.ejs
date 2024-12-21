@@ -27,12 +27,12 @@
       <% if (title === 'UPDATE PRODUCT NODEPOP') {%>
         <div class="product-image">
           <h3>Current image</h3>
-          <img src="<%= productImage %>" alt="<%= productName %>">
+          <img src="<%= productImage ? productImage : '/productsImages/placeholder.jpg' %>" alt="<%= productName %>">
           <input type="hidden" name="oldImage" value="<%= productImage %>">
         </div>
       <% } %>
       <div>
-        <label for="image"><%= productName ? "New image" : "Image" %></label>
+        <label for="image"><%= title === 'UPDATE PRODUCT NODEPOP' ? "New image" : "Image" %></label>
         <input
           type="file"
           accept="image/*"

@@ -35,10 +35,12 @@ app.use(cookieParser())
 // set the folder where statis resources will be served
 app.use(express.static(join(import.meta.dirname, 'public')))
 
+// API REST Endpoints
+
 // Session manger middlewares
 app.use(sessionMiddleware, setSessionLocalsMiddleware)
 
-// Routing
+// Website Endpoints
 
 // homepage
 app.get('/', homeController)

@@ -103,7 +103,14 @@ export const getUpdateProduct = async (req, res, next) => {
 
 export const postUpdateProduct = async (req, res, next) => {
   // get form data
-  const { name, price, image, tags } = req.body
+  const { name, price, oldImage, tags } = req.body
+  let image = null
+  if (oldImage) {
+    image = oldImage
+  }
+  if (req.file) {
+    image = `/productsImages/${req.file.filename}`
+  }
   // get productId from route params
   const { id } = req.params
   try {

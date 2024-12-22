@@ -41,12 +41,12 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 
 // API REST Endpoints
 
-app.post('/api/login', apiloginController)
-app.get('/api/products', apiProductsController)
-app.post('/api/products', apiCreateProductController)
-app.get('/api/products/:id', apiProductController)
-app.put('/api/products/:id', apiUpdateProductController)
-app.delete('/api/products/:id', apiDeleteProductController)
+app.post('/api/login', /* validatorMiddleware, authMiddleware */ apiloginController)
+app.get('/api/products', /* validatorMiddleware, authMiddleware */ apiProductsController)
+app.post('/api/products', /* validatorMiddleware, authMiddleware */ apiCreateProductController)
+app.get('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiProductController)
+app.put('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiUpdateProductController)
+app.delete('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiDeleteProductController)
 
 // Website Endpoints
 
@@ -89,8 +89,14 @@ app.use(function (err, req, res, next) {
   res.locals.error = process.env.DEBUG ? err : {}
   res.locals.title = 'ERROR NODEPOP'
 
-  // render the error page
   res.status(err.status || 500)
+
+  // return a json if the request is an API request
+  if (req.url.startsWith('/api/')) {
+    res.json({ error: err.message })
+    return
+  }
+  // render the error page if the request is not an API request
   res.render('error')
 })
 

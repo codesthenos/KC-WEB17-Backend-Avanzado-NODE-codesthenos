@@ -87,18 +87,18 @@ export const apiProductController = async (req, res, next) => {
 
 export const apiUpdateProductController = async (req, res, next) => {
   try {
-    // check if user can update or not and validation middleware TODO in all methods
+    // validation middleware TODO in all methods
     const userId = req.apiUserId
     const { id } = req.params
     if (!userId) {
       return res.status(401).json({ error: 'user not logged' })
     }
     const productData = req.body
-    productData.image = req.file ? `/productsImages/${req.file.filename}` : null
+    productData.image = req.file ? `/productsImages/${req.file.filename}` : '/productsImages/placeholder.jpg'
 
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })
 
-    res.json(product)
+    res.json({ result: product })
   } catch (error) {
     next(error)
   }

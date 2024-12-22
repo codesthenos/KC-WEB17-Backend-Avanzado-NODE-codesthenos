@@ -1,3 +1,4 @@
+import 'dotenv/config.js'
 import { createInterface } from 'node:readline'
 import { connectDB } from './lib/connectDB.js'
 import { User } from './models/User.js'

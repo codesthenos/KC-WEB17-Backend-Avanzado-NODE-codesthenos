@@ -17,11 +17,10 @@
   <a class="btn" href="/logout"><%= __('LOGOUT') %></a>
   <% } %>
   <div class="lang-buttons-div">
-    <a href="">
-      <img class="lang-button" src="/es-flag.png" alt="">
-    </a>
-    <a href="">
-      <img class="lang-button" src="/en-flag.png" alt="">
-    </a>
+    <% getLocales().forEach(lang => { %>
+      <a href="/change-lang/<%= lang %>">
+        <img class="lang-button" src="/<%= lang %>-flag.png" alt="<%= lang %>">
+      </a>
+    <% }) %>
   </div>
 </header>

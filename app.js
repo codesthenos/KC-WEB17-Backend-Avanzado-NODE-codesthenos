@@ -16,6 +16,7 @@ import { LOGIN_TITLE, REGISTER_TITLE } from './lib/config.js'
 import { handleLoginValidationError } from './lib/zodErrorHandlers.js'
 import { uploadFileMiddleware } from './lib/multerMiddleware.js'
 import { i18nMiddleware } from './lib/i18nMiddleware.js'
+import { langController } from './controllers/langController.js'
 
 const app = express()
 
@@ -44,6 +45,8 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 app.use(sessionMiddleware, setSessionLocalsMiddleware)
 // i18n middleware
 app.use(i18nMiddleware)
+// change language endpoint
+app.get('/change-lang/:lang', langController)
 // homepage
 app.get('/', homeController)
 /* Users */

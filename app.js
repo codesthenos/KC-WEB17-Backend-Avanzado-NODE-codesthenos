@@ -17,6 +17,8 @@ import { handleLoginValidationError } from './lib/zodErrorHandlers.js'
 import { uploadFileMiddleware } from './lib/multerMiddleware.js'
 import { i18nMiddleware } from './lib/i18nMiddleware.js'
 import { langController } from './controllers/langController.js'
+import { apiloginController } from './controllers/api/loginController.js'
+import { apiProductsController, apiCreateProductController, apiProductController, apiUpdateProductController, apiDeleteProductController } from './controllers/api/productsController.js'
 
 const app = express()
 
@@ -38,6 +40,13 @@ app.use(cookieParser())
 app.use(express.static(join(import.meta.dirname, 'public')))
 
 // API REST Endpoints
+
+app.post('/api/login', apiloginController)
+app.get('/api/products', apiProductsController)
+app.post('/api/products', apiCreateProductController)
+app.get('/api/products/:id', apiProductController)
+app.put('/api/products/:id', apiUpdateProductController)
+app.delete('/api/products/:id', apiDeleteProductController)
 
 // Website Endpoints
 

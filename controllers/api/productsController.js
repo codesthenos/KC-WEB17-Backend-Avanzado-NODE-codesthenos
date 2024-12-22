@@ -53,7 +53,7 @@ export const apiCreateProductController = async (req, res, next) => {
   try {
     const { name, price, tags } = req.body
     const userId = req.apiUserId
-    const image = req.file ? `/productsImages/${req.file.filename}` : null
+    const image = req.file ? `/productsImages/${req.file.filename}` : '/productsImages/placeholder.jpg'
 
     const product = new Product({
       name,

@@ -44,9 +44,9 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 
 app.post('/api/login', /* validatorMiddleware */ apiloginController)
 app.get('/api/products', /* validatorMiddleware */ jwtMiddleware, apiProductsController)
-app.post('/api/products', /* validatorMiddleware */ jwtMiddleware, apiCreateProductController)
+app.post('/api/products', jwtMiddleware, uploadFileMiddleware, /* validatorMiddleware */ apiCreateProductController)
 app.get('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, apiProductController)
-app.put('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, verifyOwner, apiUpdateProductController)
+app.put('/api/products/:id', jwtMiddleware, verifyOwner, uploadFileMiddleware, /* validatorMiddleware */ apiUpdateProductController)
 app.delete('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, verifyOwner, apiDeleteProductController)
 
 // Website Endpoints

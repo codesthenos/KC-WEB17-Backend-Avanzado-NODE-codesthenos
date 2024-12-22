@@ -1,5 +1,5 @@
 <header class="header">
-  <h1><%= title %></h1>
+  <h1><%= __(title) %></h1>
   <% if (title === 'CODESTHENOS-NODEPOP' && session.userId) { %>
   <a class="btn" href="/create-product"><%= __('create new product') %></a>
   <a class="btn" href="<%= headerLinkHref %>"><%= __(headerLinkText) %></a>

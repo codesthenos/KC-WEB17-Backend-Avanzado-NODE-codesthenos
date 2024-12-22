@@ -19,6 +19,7 @@ import { i18nMiddleware } from './lib/i18nMiddleware.js'
 import { langController } from './controllers/langController.js'
 import { apiloginController } from './controllers/api/loginController.js'
 import { apiProductsController, apiCreateProductController, apiProductController, apiUpdateProductController, apiDeleteProductController } from './controllers/api/productsController.js'
+import { jwtMiddleware, verifyOwner } from './lib/jwtAuthMiddlewares.js'
 
 const app = express()
 
@@ -41,12 +42,12 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 
 // API REST Endpoints
 
-app.post('/api/login', /* validatorMiddleware, authMiddleware */ apiloginController)
-app.get('/api/products', /* validatorMiddleware, authMiddleware */ apiProductsController)
-app.post('/api/products', /* validatorMiddleware, authMiddleware */ apiCreateProductController)
-app.get('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiProductController)
-app.put('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiUpdateProductController)
-app.delete('/api/products/:id', /* validatorMiddleware, authMiddleware */ apiDeleteProductController)
+app.post('/api/login', /* validatorMiddleware */ apiloginController)
+app.get('/api/products', /* validatorMiddleware */ jwtMiddleware, apiProductsController)
+app.post('/api/products', /* validatorMiddleware */ jwtMiddleware, apiCreateProductController)
+app.get('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, apiProductController)
+app.put('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, verifyOwner, apiUpdateProductController)
+app.delete('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, verifyOwner, apiDeleteProductController)
 
 // Website Endpoints
 

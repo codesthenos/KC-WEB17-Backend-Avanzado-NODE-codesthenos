@@ -24,9 +24,13 @@ body {
   margin: 0 auto;
   margin-bottom: 1rem;
   padding: 0 1rem;
-  .lang-button {
-    max-width: 75px;
-    border-radius: 10px;
+  .lang-buttons-div {
+    display: flex;
+    gap: 1rem;
+    .lang-button {
+      max-width: 35px;
+      border-radius: 10px;
+    }
   }
 }
 

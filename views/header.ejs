@@ -1,11 +1,5 @@
 <header class="header">
   <h1><%= __(title) %></h1>
-  <a href="">
-    <img class="lang-button" src="/es-flag.png" alt="">
-  </a>
-  <a href="">
-    <img class="lang-button" src="/en-flag.png" alt="">
-  </a>
   <% if (title === 'CODESTHENOS-NODEPOP' && session.userId) { %>
   <a class="btn" href="/create-product"><%= __('create new product') %></a>
   <a class="btn" href="<%= headerLinkHref %>"><%= __(headerLinkText) %></a>
@@ -22,4 +16,12 @@
   <a class="btn" href="<%= headerLinkHref %>"><%= __(headerLinkText) %></a>
   <a class="btn" href="/logout"><%= __('LOGOUT') %></a>
   <% } %>
+  <div class="lang-buttons-div">
+    <a href="">
+      <img class="lang-button" src="/es-flag.png" alt="">
+    </a>
+    <a href="">
+      <img class="lang-button" src="/en-flag.png" alt="">
+    </a>
+  </div>
 </header>

@@ -75,9 +75,9 @@ export const apiProductController = async (req, res, next) => {
     const { id } = req.params
     const product = await Product.findById(id)
     if (!product) {
-      return res.status(404).json({ error: 'not found' })
+      return res.status(404).json({ error: 'product not found' })
     } else {
-      res.json(product)
+      res.json({ result: product })
     }
   } catch (error) {
     next(error)
@@ -102,6 +102,7 @@ export const apiUpdateProductController = async (req, res, next) => {
     if (body.tags) {
       productData.tags = typeof body.tags === 'string' ? [body.tags] : body.tags
     }
+
     productData.image = req.file && `/productsImages/${req.file.filename}`
 
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })
@@ -117,6 +118,7 @@ export const apiDeleteProductController = async (req, res, next) => {
     const { id } = req.params
 
     await Product.findByIdAndDelete(id)
+
     res.json({ result: 'product deleted' })
   } catch (error) {
     next(error)

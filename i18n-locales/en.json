@@ -49,5 +49,6 @@
   "\n      ERROR in email\n            message: Invalid email\n    \n      ERROR in password\n            message: Password must be at least 6 characters\n    ": "\n      ERROR in email\n            message: Invalid email\n    \n      ERROR in password\n            message: Password must be at least 6 characters\n    ",
   "\n      ERROR in password\n            message: Password must be at least 6 characters\n    ": "\n      ERROR in password\n            message: Password must be at least 6 characters\n    ",
   "   Invalid credentials": "   Invalid credentials",
-  "   ERROR: This email is already REGISTERED": "   ERROR: This email is already REGISTERED"
+  "   ERROR: This email is already REGISTERED": "   ERROR: This email is already REGISTERED",
+  "API DOCS": "API DOCS"
 }

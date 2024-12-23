@@ -1,0 +1,273 @@
+openapi: 3.0.0
+info:
+  title: Nodepop API
+  version: 1.0.0
+  description: API for managing products in the Nodepop application
+
+servers:
+  - url: http://localhost:3000/api
+
+paths:
+  /login:
+    post:
+      summary: Authenticate user
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: Successful authentication
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  jwToken:
+                    type: string
+        '401':
+          description: Invalid credentials
+
+  /products:
+    get:
+      summary: Get products
+      tags:
+        - Products
+      security:
+        - JWTAuth: []
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          description: Filter products by name (case-insensitive, starts with)
+        - in: query
+          name: price
+          schema:
+            type: string
+          description: >
+            Filter products by price. Format can be:
+            <number>-<number> (range),
+            <number>- (minimum),
+            -<number> (maximum),
+            or <number> (exact price)
+        - in: query
+          name: tags
+          schema:
+            type: string
+          description: Filter products by tags
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+          description: Number of products to return
+        - in: query
+          name: skip
+          schema:
+            type: integer
+            minimum: 0
+          description: Number of products to skip
+        - in: query
+          name: sort
+          schema:
+            type: string
+            enum: [name, name-1, price, price-1]
+          description: Sort products by name or price (ascending or descending)
+        - in: query
+          name: fields
+          schema:
+            type: string
+          description: Comma-separated list of fields to include in the response
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  productsCount:
+                    type: integer
+        '401':
+          description: Unauthorized
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      security:
+        - JWTAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    enum: [lifestyle, motor, mobile, work]
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/Product'
+        '401':
+          description: Unauthorized
+
+  /products/{id}:
+    get:
+      summary: Get a specific product
+      tags:
+        - Products
+      security:
+        - JWTAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
+        '401':
+          description: Unauthorized
+    put:
+      summary: Update a product
+      tags:
+        - Products
+      security:
+        - JWTAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                price:
+                  type: number
+                tags:
+                  type: array
+                  items:
+                    type: string
+                    enum: [lifestyle, motor, mobile, work]
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    $ref: '#/components/schemas/Product'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User is not the owner of the product
+    delete:
+      summary: Delete a product
+      tags:
+        - Products
+      security:
+        - JWTAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    example: 'product deleted'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden - User is not the owner of the product
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        tags:
+          type: array
+          items:
+            type: string
+            enum: [lifestyle, motor, mobile, work]
+        image:
+          type: string
+        owner:
+          type: string
+
+  securitySchemes:
+    JWTAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: JWT token for authentication (raw token, not Bearer)

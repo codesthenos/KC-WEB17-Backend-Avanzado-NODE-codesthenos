@@ -1,3 +1,4 @@
+import { normalizePriceMongo, normalizeSortMongo } from '../../lib/config.js'
 import { Product } from '../../models/Product.js'
 
 export const apiProductsController = async (req, res, next) => {
@@ -15,14 +16,13 @@ export const apiProductsController = async (req, res, next) => {
     const userId = req.apiUserId
 
     const filters = {}
-    // change this for a validation middleware
 
     if (name) {
-      filters.name = name
+      filters.name = new RegExp(`^${name}`, 'i')
     }
 
     if (price) {
-      filters.price = parseFloat(price)
+      filters.price = normalizePriceMongo(price)
     }
 
     if (tags) {
@@ -35,7 +35,7 @@ export const apiProductsController = async (req, res, next) => {
     const options = {
       limit,
       skip,
-      sort,
+      sort: normalizeSortMongo(sort),
       fields
     }
     const [products, productsCount] = await Promise.all([

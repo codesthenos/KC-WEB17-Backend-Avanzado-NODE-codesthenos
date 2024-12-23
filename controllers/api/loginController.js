@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 
 export const apiloginController = async (req, res, next) => {
   try {
-    // validator middleware before this one
     const { email, password } = req.body
 
     const user = await User.findOne({ email: email.toLowerCase() })

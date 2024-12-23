@@ -57,7 +57,7 @@ export const apiCreateProductController = async (req, res, next) => {
 
     const product = new Product({
       name,
-      price,
+      price: parseFloat(price),
       tags,
       image,
       owner: userId
@@ -94,6 +94,7 @@ export const apiUpdateProductController = async (req, res, next) => {
       return res.status(401).json({ error: 'user not logged' })
     }
     const productData = req.body
+    productData.price = parseFloat(productData.price)
     productData.image = req.file ? `/productsImages/${req.file.filename}` : '/productsImages/placeholder.jpg'
 
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })

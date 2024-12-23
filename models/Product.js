@@ -16,6 +16,7 @@ productSchema.statics.list = ({ filters = {}, options = {} }) => {
     .sort(options.sort)
     .skip(options.skip)
     .limit(options.limit)
+    .select(options.fields)
     .exec()
 }
 

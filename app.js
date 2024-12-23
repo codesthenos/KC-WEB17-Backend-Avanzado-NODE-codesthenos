@@ -11,7 +11,7 @@ import { getLogin, postLogin } from './controllers/loginController.js'
 import logoutController from './controllers/logoutController.js'
 import { getRegister, postRegister } from './controllers/registerController.js'
 import { deleteProduct, getCreateProduct, postCreateProduct, getUpdateProduct, postUpdateProduct } from './controllers/productsController.js'
-import { createProductValidatorMiddleware, loginSchema, updateProductValidatorMiddleware, validatorMiddleware } from './lib/validatorSchemas.js'
+import { apiLoginValidatorMiddleware, apiProductValidatorMiddleware, createProductValidatorMiddleware, loginSchema, updateProductValidatorMiddleware, validatorMiddleware } from './lib/validatorSchemas.js'
 import { LOGIN_TITLE, REGISTER_TITLE } from './lib/config.js'
 import { handleLoginValidationError } from './lib/zodErrorHandlers.js'
 import { uploadFileMiddleware } from './lib/multerMiddleware.js'
@@ -42,12 +42,12 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 
 // API REST Endpoints
 
-app.post('/api/login', /* validatorMiddleware */ apiloginController)
-app.get('/api/products', /* validatorMiddleware */ jwtMiddleware, apiProductsController)
-app.post('/api/products', jwtMiddleware, uploadFileMiddleware, /* validatorMiddleware */ apiCreateProductController)
-app.get('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, apiProductController)
-app.put('/api/products/:id', jwtMiddleware, verifyOwner, uploadFileMiddleware, /* validatorMiddleware */ apiUpdateProductController)
-app.delete('/api/products/:id', /* validatorMiddleware */ jwtMiddleware, verifyOwner, apiDeleteProductController)
+app.post('/api/login', apiLoginValidatorMiddleware, apiloginController)
+app.get('/api/products', jwtMiddleware, apiProductsController)
+app.post('/api/products', jwtMiddleware, uploadFileMiddleware, apiProductValidatorMiddleware, apiCreateProductController)
+app.get('/api/products/:id', jwtMiddleware, apiProductController)
+app.put('/api/products/:id', jwtMiddleware, verifyOwner, uploadFileMiddleware, apiProductValidatorMiddleware, apiUpdateProductController)
+app.delete('/api/products/:id', jwtMiddleware, verifyOwner, apiDeleteProductController)
 
 // Website Endpoints
 

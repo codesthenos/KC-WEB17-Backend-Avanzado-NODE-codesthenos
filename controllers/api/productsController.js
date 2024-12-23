@@ -110,11 +110,8 @@ export const apiUpdateProductController = async (req, res, next) => {
 
 export const apiDeleteProductController = async (req, res, next) => {
   try {
-    const userId = req.apiUserId
     const { id } = req.params
-    if (!userId) {
-      return res.status(401).json({ error: 'user not logged' })
-    }
+
     await Product.findByIdAndDelete(id)
     res.json({ result: 'product deleted' })
   } catch (error) {

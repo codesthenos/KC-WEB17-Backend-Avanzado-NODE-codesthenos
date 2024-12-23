@@ -57,7 +57,7 @@ export const apiCreateProductController = async (req, res, next) => {
     const product = new Product({
       name,
       price: parseFloat(price),
-      tags,
+      tags: typeof tags === 'string' ? [tags] : tags,
       image,
       owner: userId
     })
@@ -73,12 +73,20 @@ export const apiCreateProductController = async (req, res, next) => {
 export const apiProductController = async (req, res, next) => {
   try {
     const { id } = req.params
-    const product = await Product.findById(id)
-    if (!product) {
-      return res.status(404).json({ error: 'product not found' })
-    } else {
-      res.json({ result: product })
+
+    if (!id) {
+      res.status(404).json({ error: 'id not provided' })
+      return
     }
+
+    const product = await Product.findById(id)
+
+    if (!product) {
+      res.status(404).json({ error: 'product not found' })
+      return
+    }
+
+    res.json({ result: product })
   } catch (error) {
     next(error)
   }

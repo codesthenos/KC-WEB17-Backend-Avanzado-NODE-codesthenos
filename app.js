@@ -20,6 +20,7 @@ import { langController } from './controllers/langController.js'
 import { apiloginController } from './controllers/api/loginController.js'
 import { apiProductsController, apiCreateProductController, apiProductController, apiUpdateProductController, apiDeleteProductController } from './controllers/api/productsController.js'
 import { jwtMiddleware, verifyOwner } from './lib/jwtAuthMiddlewares.js'
+import { queryValidatorMiddleware } from './lib/queryValidatorMiddleware.js'
 
 const app = express()
 
@@ -43,7 +44,7 @@ app.use(express.static(join(import.meta.dirname, 'public')))
 // API REST Endpoints
 
 app.post('/api/login', apiLoginValidatorMiddleware, apiloginController)
-app.get('/api/products', jwtMiddleware, apiProductsController)
+app.get('/api/products', jwtMiddleware, queryValidatorMiddleware, apiProductsController)
 app.post('/api/products', jwtMiddleware, uploadFileMiddleware, apiProductValidatorMiddleware, apiCreateProductController)
 app.get('/api/products/:id', jwtMiddleware, apiProductController)
 app.put('/api/products/:id', jwtMiddleware, verifyOwner, uploadFileMiddleware, apiProductValidatorMiddleware, apiUpdateProductController)

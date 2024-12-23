@@ -22,7 +22,7 @@ export const apiProductsController = async (req, res, next) => {
     }
 
     if (price) {
-      filters.price = price
+      filters.price = parseFloat(price)
     }
 
     if (tags) {
@@ -38,12 +38,11 @@ export const apiProductsController = async (req, res, next) => {
       sort,
       fields
     }
-
-    const [products, productCount] = await Promise.all([
+    const [products, productsCount] = await Promise.all([
       Product.list({ filters, options }),
       Product.countDocuments(filters)
     ])
-    res.json({ products, productCount })
+    res.json({ products, productsCount })
   } catch (error) {
     next(error)
   }

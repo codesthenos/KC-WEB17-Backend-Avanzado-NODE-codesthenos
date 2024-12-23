@@ -92,9 +92,13 @@ export const apiUpdateProductController = async (req, res, next) => {
     if (!userId) {
       return res.status(401).json({ error: 'user not logged' })
     }
-    const productData = req.body
-    productData.price = parseFloat(productData.price)
-    productData.image = req.file ? `/productsImages/${req.file.filename}` : '/productsImages/placeholder.jpg'
+    const productData = {}
+    const body = req.body
+    productData.price = parseFloat(body.price)
+    if (body.tags) {
+      productData.tags = typeof body.tags === 'string' ? [body.tags] : body.tags
+    }
+    productData.image = req.file && `/productsImages/${req.file.filename}`
 
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })
 

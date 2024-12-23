@@ -86,15 +86,19 @@ export const apiProductController = async (req, res, next) => {
 
 export const apiUpdateProductController = async (req, res, next) => {
   try {
-    // validation middleware TODO in all methods
-    const userId = req.apiUserId
     const { id } = req.params
-    if (!userId) {
-      return res.status(401).json({ error: 'user not logged' })
-    }
-    const productData = {}
     const body = req.body
-    productData.price = parseFloat(body.price)
+
+    const productData = {}
+
+    if (body.name) {
+      productData.name = body.name
+    }
+
+    if (body.price) {
+      productData.price = parseFloat(body.price)
+    }
+
     if (body.tags) {
       productData.tags = typeof body.tags === 'string' ? [body.tags] : body.tags
     }

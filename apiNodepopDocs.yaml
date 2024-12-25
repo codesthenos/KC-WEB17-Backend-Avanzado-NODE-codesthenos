@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: Nodepop API
+  title: Nodepop Codesthenos API
   version: 1.0.0
-  description: API for managing products in the Nodepop application
+  description: API with CRUD operations for a product catalog and user authentication with JWT
 
 servers:
   - url: http://localhost:3000/api
@@ -56,16 +56,13 @@ paths:
           name: price
           schema:
             type: string
-          description: >
-            Filter products by price. Format can be:
-            <number>-<number> (range),
-            <number>- (minimum),
-            -<number> (maximum),
-            or <number> (exact price)
+            enum: [number, number-number, number-, -number]
+          description: Filter products by price. Use a single number for exact match, two numbers separated by a hyphen for a range, a number followed by a hyphen for greater than or equal to, or a hyphen followed by a number for less than or equal to
         - in: query
           name: tags
           schema:
             type: string
+            enum: [lifestyle, motor, mobile, work]
           description: Filter products by tags
         - in: query
           name: limit

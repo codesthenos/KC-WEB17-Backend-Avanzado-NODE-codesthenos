@@ -2,10 +2,10 @@ import { Schema, model } from 'mongoose'
 
 const productSchema = new Schema({
   name: { type: String, unique: true },
-  price: { type: Number, min: 0 },
+  price: { type: Number, min: 0, index: true },
   image: String,
-  tags: [String],
-  owner: { type: Schema.Types.ObjectId, ref: 'User' }
+  tags: { type: [String], index: true },
+  owner: { type: Schema.Types.ObjectId, ref: 'User', index: true }
 }, { timestamps: true })
 
 // static method for listing products

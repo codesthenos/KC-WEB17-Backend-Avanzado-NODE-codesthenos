@@ -1,7 +1,5 @@
-// import { z } from 'zod'
-// import { productSchema } from '../lib/validatorSchemas.js'
-// import { handleProductValidationError } from '../lib/zodErrorHandlers.js'
 import createError from 'http-errors'
+import cote from 'cote'
 import { Product } from '../models/Product.js'
 import { CREATE_PRODUCT_TITLE, setLocals, UPDATE_PRODUCT_TITLE } from '../lib/config.js'
 
@@ -22,10 +20,6 @@ export const postCreateProduct = async (req, res, next) => {
   try {
     // get userId from session
     const userId = req.session.userId
-    // Validations with zod AL final lo hago con un middleware y no aqui
-    // normalize tags to array if only one selected
-    // const normalizedTags = typeof tags === 'string' ? [tags] : tags
-    // productSchema.parse({ ...req.body, tags: normalizedTags })
     // create and store a new Product
     const newProduct = new Product({
       name,
@@ -37,11 +31,20 @@ export const postCreateProduct = async (req, res, next) => {
     // save the product in the MongoDB
     await newProduct.save()
     console.log('SUCCESSFULLY CREATED PRODUCT: ' + newProduct)
+    // after making sure the product is added
+    // we use a cote requester to send a message
+    // to the microservice that creates a thumbnail and returns it
+    const requester = new cote.Requester({ name: 'codesthenos-nodepop' })
+    const event = {
+      type: 'product-image-added'
+    }
+    requester.send(event, result => {
+      console.log(result)
+    })
+
     res.redirect('/')
   } catch (error) {
-    /* if (error instanceof z.ZodError) {
-      handleProductValidationError(CREATE_PRODUCT_TITLE, error, res, name, price, image, tags)
-    } else */ if (error.errorResponse.code === 11000) {
+    if (error.errorResponse.code === 11000) {
       setLocals(res, { title: CREATE_PRODUCT_TITLE, productName: name, productPrice: price, productImage: image, productTags: tags, error: '    NAME cant be repeated' })
       res.render('create-product')
     } else {

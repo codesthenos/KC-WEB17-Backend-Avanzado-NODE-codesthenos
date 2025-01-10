@@ -6,7 +6,7 @@ const createThumbnail = async ({ inputPath, outputPath, width, height }) => {
   try {
     const image = await Jimp.read(inputPath)
 
-    image.resize(width, height)
+    image.resize({ w: width, h: height })
 
     await image.writeAsync(outputPath)
     console.log('Image resized succesfully, saved at:', outputPath)

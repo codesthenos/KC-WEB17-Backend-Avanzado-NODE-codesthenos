@@ -16,7 +16,7 @@
   <a class="btn" href="<%= headerLinkHref %>"><%= __(headerLinkText) %></a>
   <a class="btn" href="/logout"><%= __('LOGOUT') %></a>
   <% } %>
-  <a class="btn" href="/redoc-static.html"><%= __('API DOCS') %></a>
+  <a class="btn" href="/redoc-static.html" target="_blank"><%= __('API DOCS') %></a>
   <div class="lang-buttons-div">
     <% getLocales().forEach(lang => { %>
       <a href="/change-lang/<%= lang %>">

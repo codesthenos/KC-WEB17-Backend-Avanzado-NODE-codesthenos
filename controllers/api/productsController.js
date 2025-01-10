@@ -1,4 +1,5 @@
 import { normalizePriceMongo, normalizeSortMongo } from '../../lib/config.js'
+import { imageAddedEvent } from '../../lib/coteRequester.js'
 import { Product } from '../../models/Product.js'
 
 export const apiProductsController = async (req, res, next) => {
@@ -64,6 +65,9 @@ export const apiCreateProductController = async (req, res, next) => {
 
     const newProduct = await product.save()
 
+    // microservice to create a thumbnail
+    imageAddedEvent({ image: image.slice(1) })
+
     res.status(201).json({ result: newProduct })
   } catch (error) {
     next(error)
@@ -114,6 +118,9 @@ export const apiUpdateProductController = async (req, res, next) => {
     productData.image = req.file && `/productsImages/${req.file.filename}`
 
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })
+
+    // microservice to create a thumbnail only if there is a new image
+    if (req.file) imageAddedEvent({ image: productData.image.slice(1) })
 
     res.json({ result: product })
   } catch (error) {

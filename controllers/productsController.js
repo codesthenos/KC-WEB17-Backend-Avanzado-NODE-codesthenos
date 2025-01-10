@@ -36,7 +36,8 @@ export const postCreateProduct = async (req, res, next) => {
     // to the microservice that creates a thumbnail and returns it
     const requester = new cote.Requester({ name: 'codesthenos-nodepop' })
     const event = {
-      type: 'product-image-added'
+      type: 'product-image-added',
+      image: image.slice(1)
     }
     requester.send(event, result => {
       console.log(result)

@@ -8,7 +8,7 @@ const createThumbnail = async ({ inputPath, outputPath, width, height }) => {
 
     image.resize({ w: width, h: height })
 
-    await image.writeAsync(outputPath)
+    await image.write(outputPath)
     console.log('Image resized succesfully, saved at:', outputPath)
     return { message: 'thumbnail created' }
   } catch (error) {

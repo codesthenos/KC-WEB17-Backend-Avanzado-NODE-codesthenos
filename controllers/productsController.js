@@ -1,7 +1,7 @@
 import createError from 'http-errors'
-import cote from 'cote'
 import { Product } from '../models/Product.js'
 import { CREATE_PRODUCT_TITLE, setLocals, UPDATE_PRODUCT_TITLE } from '../lib/config.js'
+import { imageAddedEvent } from '../lib/coteRequester.js'
 
 export const getCreateProduct = (req, res, next) => {
   setLocals(res, { title: CREATE_PRODUCT_TITLE })
@@ -34,14 +34,7 @@ export const postCreateProduct = async (req, res, next) => {
     // after making sure the product is added
     // we use a cote requester to send a message
     // to the microservice that creates a thumbnail and returns it
-    const requester = new cote.Requester({ name: 'codesthenos-nodepop' })
-    const event = {
-      type: 'product-image-added',
-      image: image.slice(1)
-    }
-    requester.send(event, result => {
-      console.log(result)
-    })
+    imageAddedEvent({ image: image.slice(1) })
 
     res.redirect('/')
   } catch (error) {
@@ -153,6 +146,8 @@ export const postUpdateProduct = async (req, res, next) => {
       owner: userId
     }, { new: true, runValidators: true })
     console.log('SUCCESSFULLY UPDATED PRODUCT: ' + updatedProduct)
+    // same we create the thumbnail, wont change the actual logic, but i would had managed the image different
+    imageAddedEvent({ image: image.slice(1) })
     res.redirect('/')
   } catch (error) {
     /* if (error instanceof z.ZodError) {

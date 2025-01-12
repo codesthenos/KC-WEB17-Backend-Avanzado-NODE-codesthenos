@@ -1,5 +1,6 @@
 import { normalizePriceMongo, normalizeSortMongo } from '../../lib/config.js'
-import { imageAddedEvent } from '../../lib/coteRequester.js'
+import { newImageAdded } from '../../lib/rabbitMQPublisher.js'
+// import { imageAddedEvent } from '../../lib/coteRequester.js'
 import { Product } from '../../models/Product.js'
 
 export const apiProductsController = async (req, res, next) => {
@@ -66,7 +67,8 @@ export const apiCreateProductController = async (req, res, next) => {
     const newProduct = await product.save()
 
     // microservice to create a thumbnail
-    imageAddedEvent({ image: image.slice(1) })
+    // imageAddedEvent({ image: image.slice(1) })
+    newImageAdded({ image: image.slice(1) })
 
     res.status(201).json({ result: newProduct })
   } catch (error) {
@@ -120,7 +122,8 @@ export const apiUpdateProductController = async (req, res, next) => {
     const product = await Product.findByIdAndUpdate(id, productData, { new: true })
 
     // microservice to create a thumbnail only if there is a new image
-    if (req.file) imageAddedEvent({ image: productData.image.slice(1) })
+    // if (req.file) imageAddedEvent({ image: productData.image.slice(1) })
+    if (req.file) newImageAdded({ image: productData.image.slice(1) })
 
     res.json({ result: product })
   } catch (error) {

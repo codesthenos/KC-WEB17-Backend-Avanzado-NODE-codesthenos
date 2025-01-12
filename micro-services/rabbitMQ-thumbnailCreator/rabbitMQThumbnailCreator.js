@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import path from 'node:path'
-import ampqlib from 'amqplib'
+import amqplib from 'amqplib'
 import { Jimp } from 'jimp'
 
 const createThumbnail = async ({ inputPath, outputPath, width, height }) => {
@@ -26,7 +26,7 @@ const RESIZE_MEASURES = {
 // rabbitMQ config
 const QUEUE_NAME = 'thumbnail-creator'
 
-const connection = await ampqlib.connect(process.env.RABBITMQ_BROKER_URL)
+const connection = await amqplib.connect(process.env.RABBITMQ_BROKER_URL)
 
 const channel = await connection.createChannel()
 
